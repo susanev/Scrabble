@@ -62,9 +62,3 @@ describe 'Testing scoring_highest_score_from' do
 		expect(Scrabble::Scoring.highest_score_from(["z", "ja", "bba"]).must_equal("z"))
 	end
 end
-
-# reference
-#   it 'Must return greater than 50 when word is equal to 7 tiles' do
-#     expect (Scrabble::Scoring.score("sevenwd")).must_be :>=, 50
-#   end
-# end
