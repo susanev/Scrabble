@@ -82,7 +82,6 @@ module Scrabble
 				@total_score+=value
 				return value
 			end
-				
 		end
 
 		def won?
