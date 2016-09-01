@@ -19,6 +19,11 @@ end
 
 describe 'Testing player_play' do
 	p = Scrabble::Player.new("susan")
+
+	it 'must raise Argument Error for non-Strings' do
+		expect(proc {p.play(0)} ).must_raise ArgumentError
+	end
+
 	p.play("apple")
 
 	it 'must add played word to plays' do
