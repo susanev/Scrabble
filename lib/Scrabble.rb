@@ -7,7 +7,7 @@ module Scrabble
 		end
 
 		def self.setup_score_chart
-			@score_chart = {1=>["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"], 2=>["D", "G"], 3=>["B", "C", "M", "P"], 4=>["F", "H", "V", "W", "Y"], 5=>["K"], 6=>["J", "X"], 7=>["Q", "Z"]}
+			@score_chart = {1=>%w{A E I O U L N R S T}, 2=>%w{D G}, 3=>%w{B C M P}, 4=>%w{F H V W Y}, 5=>%w{K}, 6=>%w{J X}, 7=>%w{Q Z}}
 		end
 
 		def self.score(word)
@@ -122,7 +122,7 @@ module Scrabble
 		attr_accessor :default_tiles
 
 		def initialize
-			@default_tiles = {"A":9, "B":2, "C":2, "D":4, "E":12, "F":2, "G":3, "H":2, "I":9, "J":1, "K":1, "L":4, "M":2, "N":6, "O":8, "P":2, "Q":1, "R":6, "S":4, "T":6, "U":4, "V":2, "W":2, "X":1, "Y":2, "Z":1}
+			@default_tiles = {A:9, B:2, C:2, D:4, E:12, F:2, G:3, H:2, I:9, J:1, K:1, L:4, M:2, N:6, O:8, P:2, Q:1, R:6, S:4, T:6, U:4, V:2, W:2, X:1, Y:2, Z:1}
 		end
 
 		def draw_tiles(num)
