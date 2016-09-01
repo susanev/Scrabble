@@ -8,6 +8,10 @@ describe 'Testing scoring_setup_score_chart' do
 end
 
 describe 'Testing scoring_score' do
+	it 'must raise ArgumentError when not passed String' do
+		expect (proc {Scrabble::Scoring.score(0)} ).must_raise ArgumentError
+	end
+
 	it 'must score the empty string as 0' do
 		expect(Scrabble::Scoring.score("").must_equal(0))
 	end
@@ -22,6 +26,18 @@ describe 'Testing scoring_score' do
 end
 
 describe 'Testing scoring_highest_score_from' do
+	it 'must raise ArgumentError when not passed Array' do
+		expect (proc {Scrabble::Scoring.highest_score_from(0)} ).must_raise ArgumentError
+	end
+
+	it 'must raise ArgumentError when Array is empty' do
+		expect (proc {Scrabble::Scoring.highest_score_from([])} ).must_raise ArgumentError
+	end
+
+	it 'must raise ArgumentError when Array does not contain only Strings' do
+		expect (proc {Scrabble::Scoring.highest_score_from(["a", "b", 1])} ).must_raise ArgumentError
+	end
+
 	it 'must return the item from an array of length 1' do
 		expect(Scrabble::Scoring.highest_score_from(["a"]).must_equal("a"))
 	end
@@ -48,11 +64,6 @@ describe 'Testing scoring_highest_score_from' do
 end
 
 # reference
-# describe 'Testing scrabble_score' do
-#   it 'It must raise an IllegalArgument if given a non-String' do
-#     expect (proc {Scrabble::Scoring.score(2)} ).must_raise ArgumentError
-#   end
-
 #   it 'Must return greater than 50 when word is equal to 7 tiles' do
 #     expect (Scrabble::Scoring.score("sevenwd")).must_be :>=, 50
 #   end
