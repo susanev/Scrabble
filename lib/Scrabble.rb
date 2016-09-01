@@ -11,6 +11,10 @@ module Scrabble
 		end
 
 		def self.score(word)
+			if word.class != String
+				raise ArgumentError.new("Must pass a string")
+			end
+
 			setup_score_chart
 			score = 0
 			word.length == 7 ? score = 50 : score = 0
@@ -29,6 +33,18 @@ module Scrabble
 		end
 
 		def self.highest_score_from(words)
+			if words.class != Array 
+				raise ArgumentError.new('Must pass an array')
+			elsif words.length == 0
+				raise ArgumentError.new('Array must have values')
+			else
+				words.each do |word|
+					if word.class != String
+						raise ArgumentError.new('Array must contain String values only')
+					end
+				end
+			end
+
 			scores = {}
 
 			words.each do |word|
