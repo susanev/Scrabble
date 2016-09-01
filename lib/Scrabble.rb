@@ -3,10 +3,15 @@ module Scrabble
 		attr_accessor :score_chart
 		
 		def initialize
+			setup_score_chart
+		end
+
+		def self.setup_score_chart
 			@score_chart = {1=>["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"], 2=>["D", "G"], 3=>["B", "C", "M", "P"], 4=>["F", "H", "V", "W", "Y"], 5=>["K"], 6=>["J", "X"], 7=>["Q", "Z"]}
 		end
 
 		def self.score(word)
+			setup_score_chart
 			score = 0
 			word.length == 7 ? score = 50 : score = 0
 			word = word.upcase
@@ -21,6 +26,41 @@ module Scrabble
 			end
 
 			return score
+		end
+
+		def self.highest_score_from(words)
+			scores = {}
+
+			words.each do |word|
+				scores[word] = score(word)
+			end
+
+			max_v = scores.values.max
+			max_k = scores.key(scores.values.max)
+
+			scores.delete(max_k)
+
+			tie = {max_k => max_v}
+			min_tiles = max_k.length
+			while max_v == scores.values.max 
+				max_v = scores.values.max
+				max_k = scores.key(scores.values.max)
+
+				scores.delete(max_k)
+
+				tie[max_k] = max_v
+
+				if max_k.length < min_tiles 
+					min_tiles = max_k.length
+				end
+			end
+
+			# fewest tiles and first in words
+			words.each do |word|
+				if tie.key?(word) && word.length == min_tiles
+					return word
+				end
+			end
 		end
 	end
 end
