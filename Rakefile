@@ -1,5 +1,7 @@
-task :default => [:test]
+require 'rake/testtask'
 
-task :test do
-	ruby "lib/scrabble_test.rb"
+Rake::TestTask.new do |t|
+	t.test_files = FileList['specs/*_spec.rb']
 end
+
+task default: :test
