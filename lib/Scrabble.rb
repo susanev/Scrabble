@@ -58,6 +58,7 @@ module Scrabble
 
 			tie = {max_k => max_v}
 			min_tiles = max_k.length
+
 			while max_v == scores.values.max 
 				max_v = scores.values.max
 				max_k = scores.key(scores.values.max)
@@ -90,6 +91,10 @@ module Scrabble
 		end
 
 		def play(word)
+			if(word.class != String)
+				raise ArgumentError.new("plays must be Strings only")
+			end
+
 			@plays << word
 			if won?
 				return false
