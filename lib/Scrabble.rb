@@ -117,7 +117,47 @@ module Scrabble
 			return Scrabble::Scoring.score(Scrabble::Scoring.highest_score_from(@plays))
 		end
 	end
+
+	class TileBag
+		attr_accessor :default_tiles
+
+		def initialize
+			@default_tiles = {"A":9, "B":2, "C":2, "D":4, "E":12, "F":2, "G":3, "H":2, "I":9, "J":1, "K":1, "L":4, "M":2, "N":6, "O":8, "P":2, "Q":1, "R":6, "S":4, "T":6, "U":4, "V":2, "W":2, "X":1, "Y":2, "Z":1}
+		end
+
+		def draw_tiles(num)
+			if num > tiles_remaining
+				raise ArgumentError.new("You do not have enough tiles left")
+			end
+
+			tiles = []
+
+			num.times do 
+				k,v = @default_tiles.to_a.sample(1)[0]
+	
+				tiles << k
+
+				if(v == 1)
+					@default_tiles.delete(k)
+				else
+					@default_tiles[k]-=1
+				end
+			end
+
+			return tiles
+		end
+
+		def tiles_remaining
+			count = 0
+			@default_tiles.each do |k,v|
+				count+=v
+			end
+
+			return count
+		end
+	end
 end
+
 
 
 
