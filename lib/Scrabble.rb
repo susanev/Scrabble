@@ -63,4 +63,51 @@ module Scrabble
 			end
 		end
 	end
+
+	class Player
+		attr_accessor :name, :plays, :total_score
+
+		def initialize (name)
+			@name = name
+			@plays = []
+			@total_score = 0
+		end
+
+		def play(word)
+			@plays << word
+			if won?
+				return false
+			else
+				value = Scrabble::Scoring.score(word)
+				@total_score+=value
+				return value
+			end
+				
+		end
+
+		def won?
+			return @total_score > 100
+		end
+
+		def highest_scoring_word
+			return Scrabble::Scoring.highest_score_from(@plays)
+		end
+
+		def highest_word_score
+			return Scrabble::Scoring.score(Scrabble::Scoring.highest_score_from(@plays))
+		end
+	end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
