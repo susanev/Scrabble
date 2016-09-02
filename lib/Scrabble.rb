@@ -82,12 +82,18 @@ module Scrabble
 	end
 
 	class Player
-		attr_accessor :name, :plays, :total_score
+		attr_accessor :name, :plays, :total_score, :tiles
 
 		def initialize (name)
 			@name = name
 			@plays = []
 			@total_score = 0
+			@tiles = []
+		end
+
+		def draw_tiles(tile_bag)
+			@tiles << tile_bag.draw_tiles(7-@tiles.length)
+			@tiles.flatten!
 		end
 
 		def play(word)
